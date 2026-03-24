@@ -9,10 +9,43 @@
 // change (number), and an optional field "notes" (string).
 
 // TODO: Define the Stock interface here
-// interface Stock { ... }
+interface Stock {
+  symbol: string;
+  price: number;
+  change: number;
+  notes?: string;
+  status?: StockStatus;
+}
 
 // TODO: Create an array of 3 stocks and log them
-// const watchlist: Stock[] = [...]
+const watchList: Stock[] = [{
+  symbol: 'AAPL',
+  price: 123,
+  change: 1
+},
+{
+  symbol: 'NFLX',
+  price: 12,
+  change: 3,
+  notes: 'Good company but bad decisions'
+},
+{
+  symbol: 'STNG',
+  price: 70,
+  change: 12
+}];
+
+//TODO: [BONUS] Create StockStatus literal type with values "bullish" | "bearish" | "neutral"
+type StockStatus = "bullish" | "bearish" | "neutral"
+
+function formatStock(stock: Stock): string {
+  const sign = stock.change >= 0 ? "+" : "";
+  return `${stock.symbol}: $${stock.price.toFixed(2)} (${sign}${stock.change}%)`;
+}
+
+function findStock(watchList: Stock[], symbol: string): Stock | undefined {
+  return watchList.find(x => x.symbol === symbol);
+}
 
 // ─── EXERCISE 2: Type Narrowing ─────────────────────────────
 // Write a function that accepts a value of type string | number.
