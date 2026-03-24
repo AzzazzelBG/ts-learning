@@ -1,0 +1,16 @@
+{
+  "name": "playwright-qa",
+  "version": "1.0.0",
+  "description": "QA automation with Playwright and TypeScript",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "typescript": "^5.4.0"
+  }
+}
