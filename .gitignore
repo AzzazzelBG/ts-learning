@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.local
+
+# Editor
+.vscode/settings.json
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+
+# Next.js
+.next/
+out/
+
+# Misc
+*.log
