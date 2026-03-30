@@ -14,7 +14,7 @@ interface Bug {
     status: Status;
 };
 
-type Severity = "low" | "medium" | "high" | "critical";
+export type Severity = "low" | "medium" | "high" | "critical";
 type Status = "open" | "in-progress" | "closed";
 
 // Task B: Create an AuditedBug interface that extends Bug and adds:
@@ -23,7 +23,7 @@ type Status = "open" | "in-progress" | "closed";
 // updatedAt: string
 // closedBy: optional string
 
-interface AuditedBug extends Bug {
+export interface AuditedBug extends Bug {
     createdAt: string;
     updatedAt: string;
     closedBy?: string;
@@ -43,7 +43,7 @@ const practice: BugCountMap = {
 
 // If no assignee, show "unassigned" instead
 
-function summarizeBug(bug: AuditedBug): string {
+export function summarizeBug(bug: AuditedBug): string {
     const owner = bug.assignee ?? "unassigned";
     return `[${bug.severity.toUpperCase()}] ${bug.title} — ${bug.status} (${owner})`;
 };
