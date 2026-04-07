@@ -117,3 +117,12 @@ function updateStock(stock: Stock, optionalStop: Partial<Stock>): Stock {
 
 // // Should return { status: "error", message: "Invalid stock data" }
 // processStockData("not a stock");
+
+function processStockData(data: unknown): RequestState<Stock> {
+    if (isStock(data)) {
+        const newData = updateStock(data, { change: 0 });
+        return { status: "success", data: newData };
+    } else {
+        return { status: "error", message: "Invalid stock data" };
+    }
+};
