@@ -1,3 +1,5 @@
+import { Stock } from './types/index.js'
+
 // Task A: Write a generic function lastElement<T> that takes an array of T and returns the last element, or undefined if the array is empty.
 // Example: lastElement([1, 2, 3]) → 3
 // Example: lastElement(["a", "b"]) → "b"
@@ -46,8 +48,8 @@ interface ApiResponse<T> {
 const stockResponse: ApiResponse<Stock[]> = {
     success: true,
     data: [
-        { symbol: "AAPL", price: 178, change: 1.5 },
-        { symbol: "NFLX", price: 620, change: -2.1 },
+        { id: 2, symbol: "AAPL", price: 178, change: 1.5 },
+        { id: 8, symbol: "NFLX", price: 620, change: -2.1 },
     ],
 };
 

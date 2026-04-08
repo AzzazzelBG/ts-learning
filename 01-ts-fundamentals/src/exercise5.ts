@@ -1,16 +1,11 @@
-import { Severity } from "./exercise2.js";
+// 1. Keeps the strict type check and throws error if typeing is vaulated
+// 2. It should change the rules of which the ECMA script is compling
+// 3. It countanes the compiled JavaScript files 
+
+import { Severity, Stock, StockPreview, NewStockInput, StockDraft, RequestState } from "./types/index.js";
 
 // Task A: Using your Stock interface, create the following utility types:
-interface Stock {
-    id: number;
-    symbol: string;
-    price: number;
-    change: number;
-}
 
-type StockPreview = Pick<Stock, "symbol" | "price">;
-type NewStockInput = Omit<Stock, "id">;
-type StockDraft = Partial<Stock>;
 type SeverityCount = Record<Severity, number>;
 
 // StockPreview — only symbol and price (use Pick)
@@ -46,11 +41,6 @@ const recordPractice: SeverityCount = {
 // { status: "loading" }
 // { status: "success"; data: T }
 // { status: "error"; message: string }
-
-type RequestState<T> =
-    | { status: "loading" }
-    | { status: "success"; data: T }
-    | { status: "error", message: string };
 
 // Then write a function renderState that takes RequestState<Stock[]> and returns a string:
 
