@@ -6,7 +6,7 @@ export interface Task {
     readonly id: number;
     title: string;
     priority: TaskPriority;
-    createdAt: Date
+    createdAt: number;
 };
 
 export type NewTaskInput = Pick<Task, "title" | "priority">;
