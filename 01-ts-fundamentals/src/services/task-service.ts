@@ -22,5 +22,23 @@ export async function listTasks(): Promise<Task[]> {
 }
 
 export async function completeTask(id: number): Promise<Task | undefined> {
-    return undefined;
+    const tasks = await readData<Task[]>(FILE_PATH, []);
+    const task = tasks.find(t => t.id === id);
+
+    if (!task) return undefined;
+
+    task.status = "done";
+    await writeData(FILE_PATH, tasks);
+    return task;
+}
+
+export async function deleteTask(id: number): Promise<Task | undefined> {
+    const tasks = await readData<Task[]>(FILE_PATH, []);
+    const task = tasks.find(t => t.id === id);
+
+    if (!task) return undefined;
+
+    const remaining = tasks.filter(t => t.id !== id);
+    await writeData(FILE_PATH, remaining);
+    return task;
 }
