@@ -4,14 +4,18 @@ import { readData, writeData } from "../utils/file.js";
 const FILE_PATH = "data/tasks.json";
 
 export async function addTask(input: NewTaskInput): Promise<Task> {
-    const newTask = {
+    const tasks = await readData<Task[]>(FILE_PATH, []);
+
+    const newTask: Task = {
         id: Math.floor(Math.random() * 9999),
         title: input.title,
+        status: "pending",
         priority: input.priority,
-        createdAt: Date.now()
+        createdAt: Date.now(),
     };
 
-    await writeData(FILE_PATH, newTask);
+    tasks.push(newTask);
+    await writeData(FILE_PATH, tasks);
 
     return newTask;
 }

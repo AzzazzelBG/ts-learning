@@ -4,7 +4,7 @@ export type TaskPriority = "low" | "medium" | "high";
 export interface Task {
     readonly id: number;
     title: string;
-    status?: TaskStatus;
+    status: TaskStatus;
     priority: TaskPriority;
     createdAt: number;
 };
