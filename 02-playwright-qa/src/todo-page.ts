@@ -39,7 +39,8 @@ export class TodoPage {
    * 2. Press Enter
    */
   async addTodo(text: string): Promise<void> {
-    // Your code here
+    await this.newTodoInput.fill(text);
+    await this.newTodoInput.press("Enter");
   }
 
   /**
@@ -47,8 +48,7 @@ export class TodoPage {
    * Hint: use this.todoItems.count()
    */
   async getTodoCount(): Promise<number> {
-    // Your code here
-    return 0;
+    return await this.todoItems.count();
   }
 
   /**
@@ -56,7 +56,9 @@ export class TodoPage {
    * Hint: find the todo item containing the text, then click its checkbox
    */
   async completeTodo(text: string): Promise<void> {
-    // Your code here
+    const itemWithText =  this.page.getByText(text);
+    const checkbox =  itemWithText.getByRole("checkbox");
+    await checkbox.click();
   }
 
   /**
@@ -64,13 +66,15 @@ export class TodoPage {
    * Hint: hover over the item first to reveal the destroy button
    */
   async deleteTodo(text: string): Promise<void> {
-    // Your code here
-  }
+    const item = this.page.getByText(text);  // no await
+    await item.hover();  // await the action separately
+    await item.locator("..").getByRole("button", { name: "×" }).click();
+}
 
   /**
    * TODO: Filter todos by clicking "Active", "Completed", or "All"
    */
   async filterBy(filter: "All" | "Active" | "Completed"): Promise<void> {
-    // Your code here
+    await this.page.getByRole("link", { name: filter }).click();
   }
 }
