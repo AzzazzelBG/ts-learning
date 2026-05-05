@@ -71,7 +71,7 @@ function handleRequests(state: RequestState<Stock[]>): string {
 
 // Task C: Write a custom type guard isStock that takes value: unknown and returns value is Stock. Check that the value is an object, not null, and has symbol and price properties.
 
-function isStock(value: unknown): value is Stock {
+export function isStock(value: unknown): value is Stock {
     return (
         typeof value === "object" &&
         value !== null &&

@@ -47,7 +47,7 @@ test.describe("TodoMVC App", () => {
 
     await todoPage.completeTodo("Learn TypeScript");
 
-    const item = todoPage.page.getByText("Learn TypeScript").locator("..");
+    const item = todoPage.page.getByText("Learn TypeScript").locator("../..");
     await expect(item).toHaveClass(/completed/);
   });
 
@@ -68,15 +68,15 @@ test.describe("TodoMVC App", () => {
     await todoPage.addTodo("Active task");
     await todoPage.addTodo("Completed task");
     await todoPage.completeTodo("Completed task");
-    
+
     await todoPage.filterBy("Active");
     await expect(todoPage.page.getByText("Active task")).toBeVisible();
     await expect(todoPage.page.getByText("Completed task")).not.toBeVisible();
-    
+
     await todoPage.filterBy("Completed");
     await expect(todoPage.page.getByText("Completed task")).toBeVisible();
     await expect(todoPage.page.getByText("Active task")).not.toBeVisible();
-    
+
     await todoPage.filterBy("All");
     await expect(todoPage.page.getByText("Active task")).toBeVisible();
     await expect(todoPage.page.getByText("Completed task")).toBeVisible();
@@ -86,4 +86,9 @@ test.describe("TodoMVC App", () => {
   // TODO: Think of an edge case and write a test for it
   // Ideas: empty todo, very long text, special characters,
   //        complete all then clear completed, etc.
+  test('should do nothing when press Enter', async () => {
+    await todoPage.emptyEnterPress();
+    const count = await todoPage.getTodoCount();
+    expect(count).toBe(0);
+  } )
 });

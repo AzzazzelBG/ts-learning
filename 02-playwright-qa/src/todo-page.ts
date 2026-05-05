@@ -19,18 +19,16 @@ export class TodoPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.newTodoInput = page.getByPlaceholder("What needs to be done?");
+    this.newTodoInput = page.getByRole("textbox", { name: "What needs to be done?" });
     this.todoItems = page.getByTestId("todo-item");
     this.todoCount = page.getByTestId("todo-count");
     this.toggleAll = page.getByLabel("Toggle All");
-    this.clearCompleted = page.getByRole("button", {
-      name: "Clear completed",
-    });
-  }
+    this.clearCompleted = page.getByRole("button", { name: "Clear completed" });
+}
 
   /** Navigate to the TodoMVC app */
   async goto() {
-    await this.page.goto("/");
+    await this.page.goto("https://demo.playwright.dev/todomvc");
   }
 
   /**
@@ -56,9 +54,8 @@ export class TodoPage {
    * Hint: find the todo item containing the text, then click its checkbox
    */
   async completeTodo(text: string): Promise<void> {
-    const itemWithText =  this.page.getByText(text);
-    const checkbox =  itemWithText.getByRole("checkbox");
-    await checkbox.click();
+    const item = this.page.getByText(text).locator("../.."); 
+    await item.getByRole("checkbox").click();
   }
 
   /**
@@ -66,15 +63,19 @@ export class TodoPage {
    * Hint: hover over the item first to reveal the destroy button
    */
   async deleteTodo(text: string): Promise<void> {
-    const item = this.page.getByText(text);  // no await
-    await item.hover();  // await the action separately
-    await item.locator("..").getByRole("button", { name: "×" }).click();
-}
+    const item = this.page.getByText(text);
+    await item.hover();
+    await item.locator("..").getByRole("button", { name: "Delete" }).click();
+  }
 
   /**
    * TODO: Filter todos by clicking "Active", "Completed", or "All"
    */
   async filterBy(filter: "All" | "Active" | "Completed"): Promise<void> {
     await this.page.getByRole("link", { name: filter }).click();
+  }
+
+  async emptyEnterPress(): Promise<void> {
+    await this.newTodoInput.press("Enter");
   }
 }
