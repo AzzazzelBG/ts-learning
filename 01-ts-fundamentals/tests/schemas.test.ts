@@ -2,10 +2,11 @@ import { describe, it, expect } from "vitest";
 import { StockResponseSchema } from "../src/schemas/stock";
 import { BugSchema } from "../src/schemas/bug";
 import { validateTask } from "../src/schemas/task";
+import { createBug, createStock } from "../src/test-helpters/factories";
 
 describe('Validate Stock schemas', () => {
     it('should valid stock pass the validation', () => {
-        const googData = [{ id: 2, symbol: "AAPL", price: 111, change: 10 }];
+        const googData = [createStock()];
         const result = StockResponseSchema.safeParse(googData);
         expect(result.success).toBeTruthy();
     });
@@ -23,7 +24,7 @@ describe('Validate Stock schemas', () => {
 
 describe('Validate Bug schemas', () => {
     it('should valid bug pass validation', () => {
-        const validBug = BugSchema.safeParse({ id: 22, title: "Test test", severity: "medium", assignee: "Sasho", status: "open" });
+        const validBug = BugSchema.safeParse(createBug());
         expect(validBug.success).toBe(true);
     });
     it('should fail with empty title', () => {
