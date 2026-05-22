@@ -16,4 +16,4 @@ export function expectTaskComplete(task: Task): void {
 
 export function expectTaskPending(task: Task): void {
     expect(task.status).toBe("pending");
-}
+};
