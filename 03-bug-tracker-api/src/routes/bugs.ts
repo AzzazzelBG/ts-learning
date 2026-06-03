@@ -6,13 +6,13 @@ const router = Router();
 
 
 // GET /api/bugs - return all bugs
-router.get("/", (req: Request, res: Response) => {
-    const bugs = getAllBugs();
+router.get("/", async (req: Request, res: Response) => {
+    const bugs = await getAllBugs();
     res.json(bugs);
 });
 
 // GET /api/bugs/:id - return one bug
-router.get("/:id", (req: Request<{ id: string }>, res: Response) => {
+router.get("/:id", async (req: Request<{ id: string }>, res: Response) => {
     const id = parseInt(req.params.id, 10);
 
     if (isNaN(id)) {
@@ -20,7 +20,7 @@ router.get("/:id", (req: Request<{ id: string }>, res: Response) => {
         return;
     }
 
-    const bug = getBugById(id);
+    const bug = await getBugById(id);
 
     if (!bug) {
         res.status(400).json({ error: `Bug with id ${id} not found` });
@@ -31,7 +31,7 @@ router.get("/:id", (req: Request<{ id: string }>, res: Response) => {
 });
 
 // POST /api/bugs - create a new bug
-router.post("/", (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
     const result = CreateBugSchema.safeParse(req.body);
 
     if (!result.success) {
@@ -39,12 +39,12 @@ router.post("/", (req: Request, res: Response) => {
         return;
     }
 
-    const newBug = createBug(result.data);
+    const newBug = await createBug(result.data);
     res.status(201).json(newBug);
 });
 
 // PUT /api/bugs/:id - update a bug
-router.put("/:id", (req: Request<{ id: string }>, res: Response) => {
+router.put("/:id", async (req: Request<{ id: string }>, res: Response) => {
     const id = parseInt(req.params.id, 10);
 
     if (isNaN(id)) {
@@ -59,7 +59,7 @@ router.put("/:id", (req: Request<{ id: string }>, res: Response) => {
         return;
     }
 
-    const updated = updateBug(id, result.data);
+    const updated = await updateBug(id, result.data);
 
     if (!updated) {
         res.status(404).json({ error: `Bug with id ${id} not found` });
@@ -70,7 +70,7 @@ router.put("/:id", (req: Request<{ id: string }>, res: Response) => {
 });
 
 // DELETE /api/bugs/:id - delete a bug
-router.delete("/:id", (req: Request<{ id: string }>, res: Response) => {
+router.delete("/:id", async (req: Request<{ id: string }>, res: Response) => {
     const id = parseInt(req.params.id, 10);
 
     if (isNaN(id)) {
@@ -78,7 +78,7 @@ router.delete("/:id", (req: Request<{ id: string }>, res: Response) => {
         return
     }
 
-    const deleted = deleteBug(id);
+    const deleted = await deleteBug(id);
 
     if (!deleted) {
         res.status(404).json({ error: `Bug with id ${id} not found` });
